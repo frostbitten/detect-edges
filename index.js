@@ -37,11 +37,11 @@ export default (canvas, options) => {
     const { width, height } = canvas;
     let pixels;
 
-    let top = -1;
+    let top = 0;
     do {
-        ++top;
         pixels = context.getImageData(0, top, width, 1).data;
-    } while (isTransparent(pixels));
+        top++;
+    } while (isTransparent(pixels) && top<height);
 
     if (top === height) {
         throw new Error("Can't detect edges.");
